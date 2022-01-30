@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-@Test(groups ="semi-useful")
+@Test(groups = "blocktest")
 public class SBlockTest {
 
     private static final int EXPECTED_HEIGHT = 2;

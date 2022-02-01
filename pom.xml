@@ -4,7 +4,7 @@
 
     <groupId>com.epam.prejap</groupId>
     <artifactId>tea-trees</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
 
     <properties>
         <version.java>17</version.java>
@@ -13,8 +13,9 @@
         <maven.compiler.target>${version.java}</maven.compiler.target>
         <version.maven>3.8.1</version.maven>
         <version.plugin.maven.enforcer>3.0.0</version.plugin.maven.enforcer>
-        <version.plugin.maven.surefire>3.0.0-M5</version.plugin.maven.surefire>
+        <version.plugin.maven.failsafe>3.0.0-M5</version.plugin.maven.failsafe>
         <version.plugin.maven.jar>3.2.0</version.plugin.maven.jar>
+        <version.plugin.maven.surefire>3.0.0-M5</version.plugin.maven.surefire>
         <version.testng>7.5</version.testng>
     </properties>
 
@@ -32,7 +33,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${version.plugin.maven.jar}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -50,7 +51,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${version.plugin.maven.failsafe}</version>
                 <configuration>
                     <groups>IT</groups>
                 </configuration>
@@ -58,7 +59,6 @@
                     <execution>
                         <goals>
                             <goal>integration-test</goal>
-                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -88,5 +88,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

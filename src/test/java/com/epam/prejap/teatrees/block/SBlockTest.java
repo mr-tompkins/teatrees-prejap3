@@ -12,7 +12,7 @@ public class SBlockTest {
     private static final int EXPECTED_WIDTH = 3;
     private static final byte[][] EXPECTED_DOTS = new byte[][] {{0, 1, 1}, {1, 1, 0}};
 
-    SBlock sBlock;
+    private SBlock sBlock;
 
     @BeforeTest
     void setup() {

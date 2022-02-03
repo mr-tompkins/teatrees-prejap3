@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-@Test(groups = "blocktest")
+@Test(groups = "blocks")
 public class SBlockTest {
 
     private static final int EXPECTED_HEIGHT = 2;
@@ -19,17 +19,14 @@ public class SBlockTest {
         sBlock = new SBlock();
     }
 
-    @Test
     public void shouldHaveProperWidth() {
         assertEquals(sBlock.cols(), EXPECTED_WIDTH);
     }
 
-    @Test
     public void shouldHaveProperHeight() {
         assertEquals(sBlock.rows(), EXPECTED_HEIGHT);
     }
 
-    @Test
     public void shouldHaveProperShape() {
         assertEquals(recreateBlockShapeFromIndividualDots(sBlock), EXPECTED_DOTS);
     }

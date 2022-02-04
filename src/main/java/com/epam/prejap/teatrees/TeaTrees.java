@@ -64,5 +64,4 @@ class TeaTrees {
 
         System.out.println("Score: " + score.points());
     }
-
 }

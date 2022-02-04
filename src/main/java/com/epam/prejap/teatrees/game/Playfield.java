@@ -5,7 +5,7 @@ import com.epam.prejap.teatrees.block.BlockFeed;
 
 public class Playfield {
 
-    private final byte[][] grid;
+    private final Grid grid;
     private final int rows;
     private final int cols;
     private final Printer printer;
@@ -20,10 +20,15 @@ public class Playfield {
         this.cols = cols;
         this.feed = feed;
         this.printer = printer;
-        grid = new byte[this.rows][this.cols];
+        grid = new Grid(new byte[rows][cols]);
     }
 
+    /**
+     * Before next block appears on the playfield, all complete lines should be removed and replaced with empty
+     * lines on the top.
+     */
     public void nextBlock() {
+        grid.removeCompleteLines();
         block = feed.nextBlock();
         row = 0;
         col = (cols - block.cols()) / 2;
@@ -33,15 +38,14 @@ public class Playfield {
     public boolean move(Move move) {
         hide();
         boolean moved;
-            switch (move) {
-                case LEFT -> moveLeft();
-                case RIGHT -> moveRight();
-            }
-            moved = moveDown();
+        switch (move) {
+            case LEFT -> moveLeft();
+            case RIGHT -> moveRight();
+        }
+        moved = moveDown();
         show();
         return moved;
     }
-
 
     private void moveRight() {
         move(0, 1);
@@ -71,7 +75,7 @@ public class Playfield {
                 if (dot > 0) {
                     int newRow = row + i + rowOffset;
                     int newCol = col + j + colOffset;
-                    if (newRow >= rows || newCol >= cols || grid[newRow][newCol] > 0) {
+                    if (newRow >= rows || newCol >= cols || !grid.isCellEmpty(newRow, newCol)) {
                         return false;
                     }
                 }
@@ -81,12 +85,12 @@ public class Playfield {
     }
 
     private void hide() {
-        forEachBrick((i, j, dot) -> grid[row + i][col + j] = 0);
+        forEachBrick((i, j, dot) -> grid.cleanCell(row + i, col + j));
     }
 
     private void show() {
-        forEachBrick((i, j, dot) -> grid[row + i][col + j] = dot);
-        printer.draw(grid);
+        forEachBrick((i, j, dot) -> grid.fillCell(row + i, col + j, dot));
+        printer.draw(grid.getGrid());
     }
 
     private void doMove(int rowOffset, int colOffset) {
@@ -108,5 +112,4 @@ public class Playfield {
     private interface BrickAction {
         void act(int i, int j, byte dot);
     }
-
 }
